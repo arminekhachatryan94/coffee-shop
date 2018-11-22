@@ -1,5 +1,10 @@
 # ng-spring
 
+## cassandra
+``` bash
+cassandra
+```
+
 ## backend:
 ``` bash
 cd backend
