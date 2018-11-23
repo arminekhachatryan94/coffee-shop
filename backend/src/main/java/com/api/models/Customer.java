@@ -9,20 +9,20 @@ import org.springframework.data.cassandra.core.mapping.Table;
 public class Customer {
 
 	@PrimaryKey
-	private int id;
+	private UUID id;
  
-    private String first_name;
-    private String last_name;
+	private String first_name;
+	private String last_name;
     private String email;
  
 	public Customer() {
 	}
  
-	public int getId() {
+	public UUID getId() {
 		return id;
 	}
  
-	public void setId(int id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
  
