@@ -23,16 +23,15 @@ import com.api.services.CustomerService;
  
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api")
+// @RequestMapping("/api")
 public class CustomerController {
  
 	@Autowired
-	CustomerService repository;
+	CustomerService customerService;
  
 	@GetMapping("/customers")
 	public List<Customer> getAllCustomers() {
-		System.out.println("Get all Customers...");
- 
-		return repository.findAll();
-	}
+		return customerService.findAll();
+    }
+
 }

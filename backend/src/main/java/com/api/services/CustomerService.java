@@ -8,5 +8,5 @@ import org.springframework.data.cassandra.repository.CassandraRepository;
 import com.api.models.Customer;
  
 public interface CustomerService extends CassandraRepository<Customer, UUID> {
-	List<Customer> findByEmail(String email);
+    List<Customer> findAll();
 }

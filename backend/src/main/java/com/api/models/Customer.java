@@ -5,11 +5,11 @@ import java.util.UUID;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
  
-@Table
+@Table(value = "customers")
 public class Customer {
 
 	@PrimaryKey
-	private UUID id;
+	private int id;
  
     private String first_name;
     private String last_name;
@@ -18,11 +18,11 @@ public class Customer {
 	public Customer() {
 	}
  
-	public UUID getId() {
+	public int getId() {
 		return id;
 	}
  
-	public void setId(UUID id) {
+	public void setId(int id) {
 		this.id = id;
 	}
  
