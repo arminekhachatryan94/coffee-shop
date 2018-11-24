@@ -6,7 +6,7 @@ cassandra
 ```
 
 ## create and populate products table
-```
+``` shell
 cqlsh
 
 CREATE TABLE coffeeshop.products (product_id UUID PRIMARY KEY, name text, size int, price decimal);
