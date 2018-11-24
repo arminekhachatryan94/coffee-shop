@@ -8,7 +8,12 @@ import org.springframework.data.cassandra.repository.Query;
 import com.api.models.Customer;
 
 public interface CustomerService extends CassandraRepository<Customer, UUID> {
-    @Query("SELECT * FROM coffeeshop.customers ALLOW FILTERING")
+    @Query("SELECT * FROM coffeeshop.customers")
     List<Customer> getAllCustomers();
 
+    @Query("SELECT u FROM coffeeshop.customers u WHERE u.id = :id")
+    Customer getCustomer(UUID id);
+
+    // @Query("SELECT * FROM coffeeshop.customers WHERE first_name = ? PER PARTITION LIMIT 1 ALLOW FILTERING;")
+    // Customer getCustomerByFirstName(String first_name);
 }

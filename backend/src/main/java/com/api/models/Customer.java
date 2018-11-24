@@ -52,7 +52,7 @@ public class Customer {
     
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", first_name=" + first_name + ", last_name=" + last_name + ", email=" + email + "]";
+		return "Customer [id=" + id.toString() + ", first_name=" + first_name + ", last_name=" + last_name + ", email=" + email + "]";
 	}
  
 }
