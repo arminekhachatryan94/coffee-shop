@@ -13,4 +13,7 @@ public interface UserService extends CassandraRepository<User, UUID> {
 
     @Query("SELECT * FROM coffeeshop.users WHERE id = :id")
     User getUser(UUID id);
+
+    @Query("INSERT INTO coffeeshop.users (id, first_name, last_name, email, role) values (now(), :first_name, :last_name, :email, :role) IF NOT EXISTS")
+    boolean createUser(String first_name, String last_name, String email, String role);
 }

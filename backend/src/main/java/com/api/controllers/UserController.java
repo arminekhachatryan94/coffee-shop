@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,20 +30,33 @@ import org.springframework.stereotype.Controller;
 public class UserController {
  
 	@Autowired
-	private UserService UserService;
+	private UserService userService;
  
     @GetMapping("/")  
 	public ResponseEntity<?> getAllUsers() {
-		List<User> users = UserService.getAllUsers();
+		List<User> users = userService.getAllUsers();
 		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getUser(@PathVariable UUID id) {
-		User user = UserService.getUser(id);
-		if( user != null )
+		User user = userService.getUser(id);
+		if(user != null)
 			return new ResponseEntity<User>(user, HttpStatus.OK);
-		else
-			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+	}
+
+	@PostMapping("/create")
+	public ResponseEntity<?> createUser(@RequestBody User user) {
+		boolean status = userService.createUser(
+			user.getFirstName(),
+			user.getLastName(),
+			user.getEmail(),
+			"customer"
+		);
+		return new ResponseEntity<String>(status + "", HttpStatus.CREATED);
+		// if(status != null)
+		// 	return new ResponseEntity<String>("Created", HttpStatus.CREATED);
+		// return new ResponseEntity<String>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }
