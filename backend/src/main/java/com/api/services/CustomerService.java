@@ -11,7 +11,7 @@ public interface CustomerService extends CassandraRepository<Customer, UUID> {
     @Query("SELECT * FROM coffeeshop.customers")
     List<Customer> getAllCustomers();
 
-    @Query("SELECT u FROM coffeeshop.customers u WHERE u.id = :id")
+    @Query("SELECT * FROM coffeeshop.customers WHERE id = :id")
     Customer getCustomer(UUID id);
 
     // @Query("SELECT * FROM coffeeshop.customers WHERE first_name = ? PER PARTITION LIMIT 1 ALLOW FILTERING;")

@@ -25,24 +25,22 @@ import org.springframework.stereotype.Controller;
  
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("customers")
 public class CustomerController {
  
 	@Autowired
 	private CustomerService customerService;
  
-    @GetMapping("/customers")  
-	public String getAllCustomers() {
-		// List<Customer> customers = customerService.getAllCustomers();
-		// return new ResponseEntity<List<Customer>>(customers, HttpStatus.OK);
-		return "jello";
+    @GetMapping("/")  
+	public ResponseEntity<?> getAllCustomers() {
+		List<Customer> customers = customerService.getAllCustomers();
+		return new ResponseEntity<List<Customer>>(customers, HttpStatus.OK);
 	}
 	
-	@GetMapping("/customers/{id}")
-	public String getCustomer(@PathVariable UUID id){
-		// Customer customer = customerService.getCustomer(id);
-		// return new ResponseEntity<Customer>(customer, HttpStatus.OK);
-		return "jello";
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getCustomer(@PathVariable UUID id) {
+		Customer customer = customerService.getCustomer(id);
+		return new ResponseEntity<Customer>(customer, HttpStatus.OK);
 	}
 	
 	// @GetMapping("/customers/{first_name}")
