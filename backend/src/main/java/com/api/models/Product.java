@@ -9,7 +9,7 @@ import org.springframework.data.cassandra.core.mapping.Table;
 public class Product {
 
 	@PrimaryKey
-	private UUID id;
+	private UUID product_id;
  
     private String name;
     private int size;
@@ -18,12 +18,12 @@ public class Product {
 	public Product() {
 	}
  
-	public UUID getId() {
-		return id;
+	public UUID getProductId() {
+		return product_id;
 	}
  
-	public void setId(UUID id) {
-		this.id = id;
+	public void setProductId(UUID product_id) {
+		this.product_id = product_id;
 	}
  
 	public String getName() {
@@ -52,7 +52,7 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id.toString() + ", name=" + name + ", size=" + size + ", price=" + price + "]";
+		return "Product [product_id=" + product_id.toString() + ", name=" + name + ", size=" + size + ", price=" + price + "]";
 	}
  
 }
