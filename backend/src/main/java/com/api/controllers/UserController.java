@@ -52,6 +52,7 @@ public class UserController {
 			user.getFirstName(),
 			user.getLastName(),
 			user.getEmail(),
+			user.getPassword(),
 			"customer"
 		);
 		return new ResponseEntity<String>(status + "", HttpStatus.CREATED);
