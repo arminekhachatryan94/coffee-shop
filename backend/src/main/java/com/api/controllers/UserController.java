@@ -60,4 +60,47 @@ public class UserController {
 		// 	return new ResponseEntity<String>("Created", HttpStatus.CREATED);
 		// return new ResponseEntity<String>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+
+	@PutMapping("/update/user/{id}")
+	public ResponseEntity<?> updateUser(@PathVariable UUID id, @RequestBody User user) {
+		String firstName = user.getFirstName();
+		String lastName = user.getLastName();
+		String email = user.getEmail();
+
+		User oldUser = userService.getUser(id);
+
+		if( oldUser != null ){
+			if(firstName == null && lastName == null && email == null)
+				return new ResponseEntity<String>("No values requested to be updated", HttpStatus.BAD_REQUEST);
+			
+			if(firstName == null) {
+				firstName = oldUser.getFirstName();
+			}
+			if(lastName == null) {
+				lastName = oldUser.getLastName();
+			}
+			if( email == null) {
+				email = oldUser.getEmail();
+			}
+
+			boolean status = userService.updateUser(
+				id, firstName, lastName, email
+			);
+
+			if(status)
+				return new ResponseEntity<String>("Successfully updated user", HttpStatus.OK);
+			return new ResponseEntity<String>("Error updating user", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<String>("User does not exist", HttpStatus.NOT_FOUND);
+	}
+
+	// @PutMapping("/update/role/{id}")
+	// public ResponseEntity<?> updateUser(@PathVariable UUID id, @RequestBody String role) {
+
+	// }
+
+	// @PutMapping("/update/password/{id}")
+	// public ResponseEntity<?> updateUser(@PathVariable UUID id, @RequestBody String password) {
+
+	// }
 }
