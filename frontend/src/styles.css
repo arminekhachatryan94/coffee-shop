@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+    background: linear-gradient(rgba(74, 48, 48, 0.2), rgba(74, 48, 48, 0.2)), url(http://www.frukmagazine.com/wp-content/uploads/2015/11/coffeeeee.jpg) no-repeat fixed;
+    background-size: cover;
+}
