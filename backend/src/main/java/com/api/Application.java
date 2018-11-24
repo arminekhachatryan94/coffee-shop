@@ -3,7 +3,7 @@ package com.api;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import com.api.controllers.CustomerController;
+import com.api.controllers.UserController;
 
 @SpringBootApplication
 public class Application {

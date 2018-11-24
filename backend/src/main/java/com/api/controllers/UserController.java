@@ -19,32 +19,30 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.datastax.driver.core.utils.UUIDs;
-import com.api.models.Customer;
-import com.api.services.CustomerService;
+import com.api.models.User;
+import com.api.services.UserService;
 import org.springframework.stereotype.Controller;
  
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("customers")
-public class CustomerController {
+@RequestMapping("users")
+public class UserController {
  
 	@Autowired
-	private CustomerService customerService;
+	private UserService UserService;
  
     @GetMapping("/")  
-	public ResponseEntity<?> getAllCustomers() {
-		List<Customer> customers = customerService.getAllCustomers();
-		return new ResponseEntity<List<Customer>>(customers, HttpStatus.OK);
+	public ResponseEntity<?> getAllUsers() {
+		List<User> users = UserService.getAllUsers();
+		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getCustomer(@PathVariable UUID id) {
-		Customer customer = customerService.getCustomer(id);
-		return new ResponseEntity<Customer>(customer, HttpStatus.OK);
+	public ResponseEntity<?> getUser(@PathVariable UUID id) {
+		User user = UserService.getUser(id);
+		if( user != null )
+			return new ResponseEntity<User>(user, HttpStatus.OK);
+		else
+			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 	}
-	
-	// @GetMapping("/customers/{first_name}")
-	// public Customer getCustomer(@PathVariable(value="first_name") String first_name){
-	// 	return customerService.getCustomerByFirstName(first_name);
-	// }
 }

@@ -5,17 +5,18 @@ import java.util.UUID;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
  
-@Table(value = "customers")
-public class Customer {
+@Table(value = "users")
+public class User {
 
 	@PrimaryKey
 	private UUID id;
  
 	private String first_name;
 	private String last_name;
-    private String email;
+	private String email;
+	private String role;
  
-	public Customer() {
+	public User() {
 	}
  
 	public UUID getId() {
@@ -48,11 +49,19 @@ public class Customer {
  
 	public void setEmail(String email) {
 		this.email = email;
-    }
+	}
+	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
     
 	@Override
 	public String toString() {
-		return "Customer [id=" + id.toString() + ", first_name=" + first_name + ", last_name=" + last_name + ", email=" + email + "]";
+		return "User [id=" + id.toString() + ", first_name=" + first_name + ", last_name=" + last_name + ", email=" + email + ", role=" + role + "]";
 	}
  
 }
