@@ -2,14 +2,18 @@
   <div class="text-center h1 title">{{ title }}</div>
   <div class="container">
     <div class="row border--bottom-1 padding--bottom-10">
-      <div class="col-4 bold">Name</div>
-      <div class="col-4 bold">Size</div>
-      <div class="col-4 bold">Price</div>
+      <div class="col-5 bold">Name</div>
+      <div class="col-2 bold">Size</div>
+      <div class="col-2 bold">Price</div>
     </div>
-    <div *ngFor="let product of products" class="row">
-      <div class="col-4">{{ product.name }}</div>
-      <div class="col-4">{{ product.size }} oz</div>
-      <div class="col-4">${{ product.price.toFixed(2) }}</div>
+    <div *ngFor="let product of products; index as i" class="row margin--top-10">
+      <div *ngIf="!(edit_index == i && edit_name == 'name')" class="col-5 margin--left-10" (click)="onClick(i, 'name')">{{ product.name }}</div>
+      <input *ngIf="edit_index == i && edit_name == 'name'" [value]="new_value" type="text" class="col-5 margin--left-10" (keydown.enter)="onKeydown()">
+      <div *ngIf="!(edit_index == i && edit_name == 'size')" class="col-2 margin--left-10" (click)="onClick(i, 'size')">{{ product.size }} oz</div>
+      <input *ngIf="edit_index == i && edit_name == 'size'" [value]="new_value" type="text" class="col-2 margin--left-10" (keydown.enter)="onKeydown()">
+      <div *ngIf="!(edit_index == i && edit_name == 'price')" class="col-2 margin--left-10" (click)="onClick(i, 'price')">${{ product.price.toFixed(2) }}</div>
+      <input *ngIf="edit_index == i && edit_name == 'price'" [value]="new_value" type="text" class="col-2 input--style margin--left-10" (keydown.enter)="onKeydown()">
+      <div class="col-2"><button class="btn btn-danger">Remove</button></div>
     </div>
   </div>
 </div>

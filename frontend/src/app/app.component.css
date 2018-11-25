@@ -1,3 +1,8 @@
+input {
+    background-color: rgba(228, 224, 217, 0.8);
+    border: 0px;
+}
+
 .title {
     margin-bottom: 30px;
 }
@@ -8,6 +13,11 @@
 
 .bg--light {
     background-color: rgba(223, 209, 188, .8);
+}
+
+
+.border--bottom-1 {
+    border-bottom: 1px solid black;
 }
 
 .margin--top-bottom-50 {
@@ -23,6 +33,10 @@
     padding-bottom: 10px;
 }
 
-.border--bottom-1 {
-    border-bottom: 1px solid black;
+.margin--top-10 {
+    margin-top: 10px;
+}
+
+.margin--left-10 {
+    margin-left: 10px;
 }
