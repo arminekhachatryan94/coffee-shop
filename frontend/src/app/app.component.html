@@ -6,10 +6,10 @@
       <div class="col-4 bold">Size</div>
       <div class="col-4 bold">Price</div>
     </div>
-    <div class="row">
-      <div class="col-4">Name</div>
-      <div class="col-4">Size</div>
-      <div class="col-4">Price</div>
+    <div *ngFor="let product of products" class="row">
+      <div class="col-4">{{ product.name }}</div>
+      <div class="col-4">{{ product.size }} oz</div>
+      <div class="col-4">${{ product.price.toFixed(2) }}</div>
     </div>
   </div>
 </div>

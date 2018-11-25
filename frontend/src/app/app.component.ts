@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { ProductService } from './services/product.service';
-import { Product } from './models/Product';
+import { Product } from './models/Product.model';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +9,7 @@ import { Product } from './models/Product';
 })
 export class AppComponent {
   title = 'Coffee Shop';
+  products: Product[];
 
   constructor(private productService: ProductService) {
     console.log(productService.getProducts());
@@ -17,7 +18,7 @@ export class AppComponent {
   ngOnInit() {
     this.productService.getProducts().subscribe(
       data => {
-        console.log(data);
+        this.products = data.content;
       }
     );
   }
