@@ -36,7 +36,7 @@ public class ProductController {
 		List<Product> products = productService.getAllProducts();
 		return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
 	}
-
+	
 	@PutMapping("/update/{id}/name")
 	public ResponseEntity<?> updateProduct(@PathVariable UUID id, @RequestBody Product product) {
 		int product_exists = productService.existsProduct(id);
