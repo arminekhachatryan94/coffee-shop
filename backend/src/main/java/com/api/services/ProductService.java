@@ -13,4 +13,16 @@ import com.api.models.Product;
 public interface ProductService extends CassandraRepository<Product, UUID> {
     @Query("SELECT * FROM coffeeshop.products")
     List<Product> getAllProducts();
+
+    @Query("SELECT count(*) FROM coffeeshop.products WHERE product_id = :id")
+    int existsProduct(UUID id);
+
+    @Query("UPDATE coffeeshop.products SET name = :name WHERE product_id = :id IF EXISTS")
+    boolean updateProductName(UUID id, String name);
+
+    @Query("UPDATE coffeeshop.products SET size = :size WHERE product_id = :id IF EXISTS")
+    boolean updateProductSize(UUID id, int size);
+
+    @Query("UPDATE coffeeshop.products SET price = :price WHERE product_id = :id IF EXISTS")
+    boolean updateProductPrice(UUID id, double price);
 }

@@ -28,7 +28,6 @@ import com.api.services.ProductService;
 @RequestMapping("products")
 @CrossOrigin(origins="http://localhost:4200", allowedHeaders="*")
 public class ProductController {
- 
 	@Autowired
 	private ProductService productService;
  
@@ -36,5 +35,44 @@ public class ProductController {
 	public ResponseEntity<?> getAllProducts() {
 		List<Product> products = productService.getAllProducts();
 		return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
+	}
+
+	@PutMapping("/update/{id}/name")
+	public ResponseEntity<?> updateProduct(@PathVariable UUID id, @RequestBody Product product) {
+		int product_exists = productService.existsProduct(id);
+		if(product_exists != 0) {
+			boolean updated = productService.updateProductName(id, product.getName());
+			if(updated) {
+				return new ResponseEntity<String>("Product successfully updated.", HttpStatus.OK);
+			}
+			return new ResponseEntity<String>("Unable to update.", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<String>("Product does not exists.", HttpStatus.NOT_FOUND);
+	}
+
+	@PutMapping("/update/{id}/size")
+	public ResponseEntity<?> updateProductSize(@PathVariable UUID id, @RequestBody Product product) {
+		int product_exists = productService.existsProduct(id);
+		if(product_exists != 0) {
+			boolean updated = productService.updateProductSize(id, product.getSize());
+			if(updated) {
+				return new ResponseEntity<String>("Product successfully updated.", HttpStatus.OK);
+			}
+			return new ResponseEntity<String>("Unable to update.", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<String>("Product does not exists.", HttpStatus.NOT_FOUND);
+	}
+
+	@PutMapping("/update/{id}/price")
+	public ResponseEntity<?> updateProductPrice(@PathVariable UUID id, @RequestBody Product product) {
+		int product_exists = productService.existsProduct(id);
+		if(product_exists != 0) {
+			boolean updated = productService.updateProductPrice(id, product.getPrice());
+			if(updated) {
+				return new ResponseEntity<String>("Product successfully updated.", HttpStatus.OK);
+			}
+			return new ResponseEntity<String>("Unable to update.", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<String>("Product does not exists.", HttpStatus.NOT_FOUND);
 	}
 }

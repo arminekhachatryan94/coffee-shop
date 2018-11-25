@@ -9,7 +9,7 @@ cassandra
 ``` shell
 cqlsh
 
-CREATE TABLE coffeeshop.products (product_id UUID PRIMARY KEY, name text, size int, price decimal);
+CREATE TABLE coffeeshop.products (product_id UUID PRIMARY KEY, name text, size int, price double);
 
 INSERT INTO coffeeshop.products (product_id, name, size, price) values (now(), 'Black Coffee (Small)', 2, 2.00) IF NOT EXISTS;
 INSERT INTO coffeeshop.products (product_id, name, size, price) values (now(), 'Black Coffee (Medium)', 4, 4.50) IF NOT EXISTS;
