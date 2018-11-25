@@ -37,6 +37,20 @@ public class ProductController {
 		return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
 	}
 	
+	@PostMapping("/create")
+	public ResponseEntity<?> deleteProduct(@RequestBody Product product) {
+		boolean created = productService.createProduct(
+			product.getName(),
+			product.getSize(),
+			product.getPrice()
+		);
+		if(created) {
+			return new ResponseEntity<String>("Successfully created product", HttpStatus.CREATED);
+		}
+		return new ResponseEntity<String>("Unable to create product.", HttpStatus.INTERNAL_SERVER_ERROR);
+
+	}
+
 	@PutMapping("/update/{id}/name")
 	public ResponseEntity<?> updateProduct(@PathVariable UUID id, @RequestBody Product product) {
 		int product_exists = productService.existsProduct(id);
