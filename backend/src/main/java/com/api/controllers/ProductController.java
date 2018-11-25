@@ -89,4 +89,17 @@ public class ProductController {
 		}
 		return new ResponseEntity<String>("Product does not exists.", HttpStatus.NOT_FOUND);
 	}
+
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> deleteProduct(@PathVariable UUID id) {
+		int product_exists = productService.existsProduct(id);
+		if(product_exists != 0) {
+			boolean deleted = productService.deleteProduct(id);
+			if(deleted) {
+				return new ResponseEntity<String>("Product successfully deleted.", HttpStatus.OK);
+			}
+			return new ResponseEntity<String>("Unable to update.", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<String>("Product does not exists.", HttpStatus.NOT_FOUND);
+	}
 }

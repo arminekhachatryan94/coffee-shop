@@ -28,4 +28,7 @@ public interface ProductService extends CassandraRepository<Product, UUID> {
 
     @Query("UPDATE coffeeshop.products SET price = :price WHERE product_id = :id IF EXISTS")
     boolean updateProductPrice(UUID id, double price);
+
+    @Query("DELETE FROM coffeeshop.products WHERE product_id = :id IF EXISTS")
+    boolean deleteProduct(UUID id);
 }
