@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.api.models.Product;
 import com.api.services.ProductService;
  
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("products")
+@CrossOrigin(origins="http://localhost:4200", allowedHeaders="*")
 public class ProductController {
  
 	@Autowired

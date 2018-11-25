@@ -24,7 +24,7 @@ import com.api.models.User;
 import com.api.services.UserService;
 import org.springframework.stereotype.Controller;
  
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins="http://localhost:4200")
 @RestController
 @RequestMapping("users")
 public class UserController {
