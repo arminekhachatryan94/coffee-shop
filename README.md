@@ -33,3 +33,12 @@ mvn clean install
 # start server
 mvn spring-boot:run
 ```
+
+## frontend:
+``` bash
+cd frontend
+# install dependencies
+npm install
+# start server
+ng serve
+```
