@@ -1,22 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
-import { Product } from '../models/Product.model';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  allPostsUrl = "http://localhost:8080/products";
+  getProductsUrl = "http://localhost:8080/products";
+  createProductUrl = "http://localhost:8080/products/create";
+  updateProductUrl = "http://localhost:8080/products/update/";
+  deleteProductUrl = "http://localhost:8080/products/delete/"
 
   constructor(private http: Http) { }
 
   getProducts(): Observable<any>{
-    return this.http.get(this.allPostsUrl)
-    .pipe(
-      map(res => res.json()) // or any other operator
-    )
-}
+    return this.http.get(this.getProductsUrl)
+      .pipe(
+        map(res => res.json())
+      );
+  }
 
+  deleteProduct(product_id): Observable<any> {
+    return this.http.delete(this.deleteProductUrl + product_id)
+      .pipe(
+        map(res => res.json())
+      );
+  }
 }

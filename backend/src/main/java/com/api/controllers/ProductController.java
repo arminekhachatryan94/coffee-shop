@@ -5,6 +5,7 @@ import com.datastax.driver.core.utils.UUIDs;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import org.json.simple.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,9 @@ public class ProductController {
 	@GetMapping("/")
 	public ResponseEntity<?> getAllProducts() {
 		List<Product> products = productService.getAllProducts();
-		return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
+		JSONObject obj = new JSONObject();
+		obj.put("products", products);
+		return new ResponseEntity<>(obj.toJSONString(), HttpStatus.OK);
 	}
 	
 	@PostMapping("/create")
@@ -93,13 +96,20 @@ public class ProductController {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deleteProduct(@PathVariable UUID id) {
 		int product_exists = productService.existsProduct(id);
+		JSONObject obj = new JSONObject();
 		if(product_exists != 0) {
 			boolean deleted = productService.deleteProduct(id);
 			if(deleted) {
-				return new ResponseEntity<String>("Product successfully deleted.", HttpStatus.OK);
+				obj.put("message", "Product successfully deleted.");
+				obj.put("level", "success");
+				return new ResponseEntity<>(obj.toJSONString(), HttpStatus.OK);
 			}
-			return new ResponseEntity<String>("Unable to update.", HttpStatus.INTERNAL_SERVER_ERROR);
+			obj.put("message", "Unable to update.");
+			obj.put("level", "danger");
+			return new ResponseEntity<>(obj.toJSONString(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<String>("Product does not exists.", HttpStatus.NOT_FOUND);
+		obj.put("message", "Product does not exists.");
+		obj.put("level", "danger");
+		return new ResponseEntity<>(obj.toJSONString(), HttpStatus.NOT_FOUND);
 	}
 }

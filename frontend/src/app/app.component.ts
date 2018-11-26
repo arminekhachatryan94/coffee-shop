@@ -1,6 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { ProductService } from './services/product.service';
-import { Product } from './models/Product.model';
+import { Product } from './models/product.model';
 
 @Component({
   selector: 'app-root',
@@ -17,18 +17,18 @@ export class AppComponent {
   new_value;
 
   constructor(private productService: ProductService) {
-    console.log(productService.getProducts());
   }
 
   ngOnInit() {
     this.productService.getProducts().subscribe(
       data => {
         this.products = data.content;
+        console.log(data);
       }
     );
   }
 
-  onClick(index, name) {
+  onEditClick(index, name) {
     console.log(index + " " + name);
     this.edit_index = index;
     this.edit_name = name;
@@ -45,6 +45,22 @@ export class AppComponent {
     this.edit_index = -1;
     this.edit_name = "";
     this.new_value = undefined;
+  }
+
+  onDelete(index) {
+    console.log("delete requested " + index);
+    this.productService.deleteProduct(this.products[index].productId)
+      .subscribe(
+        data => {
+          let message = data.message;
+          let level = data.level;
+          if(level == "success") {
+            this.products.splice(index, 1);
+          } else {
+            alert(message);
+          }
+        }
+      );
   }
 
 }
