@@ -16,9 +16,9 @@
       <div class="col-2 text-center"><button class="btn btn-danger" (click)="onDelete(i)">Remove</button></div>
     </div>
     <div class="row margin--top-10">
-      <input type="text" class="col-5 margin--left-10" [value]="new_product.name" [(ngModel)]="new_product.name" (ngModelChange)="new_product.name = $event" required>
-      <input type="number" class="col-2 margin--left-10" [value]="new_product.size" [(ngModel)]="new_product.size" (ngModelChange)="new_product.size = $event" required>
-      <input type="number" class="col-2 margin--left-10" [value]="new_product.price" [(ngModel)]="new_product.price" (ngModelChange)="new_product.price = $event" required>
+      <input type="text" placeholder="Name" class="col-5 margin--left-10" [value]="new_product.name" [(ngModel)]="new_product.name" (ngModelChange)="new_product.name = $event" required>
+      <input type="number" placeholder="Size" class="col-2 margin--left-10" [value]="new_product.size" [(ngModel)]="new_product.size" (ngModelChange)="new_product.size = $event" required>
+      <input type="number" placeholder="Price" class="col-2 margin--left-10" [value]="new_product.price" [(ngModel)]="new_product.price" (ngModelChange)="new_product.price = $event" required>
       <div class="col-2 text-center">
         <button class="btn btn-success" (click)="createProduct()">Add</button>
       </div>
