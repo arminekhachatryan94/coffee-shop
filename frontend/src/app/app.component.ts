@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ProductService } from './services/product.service';
 import { Product } from './models/product.model';
 
@@ -27,8 +27,17 @@ export class AppComponent {
     this.productService.getProducts().subscribe(
       data => {
         this.products = data.content;
+        this.products.sort(this.compare);
       }
     );
+  }
+
+  compare(a, b) {
+    if (a.name < b.name)
+      return -1;
+    if (a.name > b.name)
+      return 1;
+    return 0;
   }
 
   createProduct() {
@@ -44,6 +53,7 @@ export class AppComponent {
             let level = data.level;
             if(level == "success") {
               this.products.push(this.new_product);
+              this.products.sort(this.compare);
               this.new_product = new Product();
               this.new_product.name = "";
             } else {
