@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { ProductService } from './services/product.service';
 import { Product } from './models/product.model';
 
@@ -23,13 +23,11 @@ export class AppComponent {
     this.productService.getProducts().subscribe(
       data => {
         this.products = data.content;
-        console.log(data);
       }
     );
   }
 
   onEditClick(index, name) {
-    console.log(index + " " + name);
     this.edit_index = index;
     this.edit_name = name;
     if(name == "name") {
@@ -41,14 +39,31 @@ export class AppComponent {
     }
   }
 
-  onKeydown() {
-    this.edit_index = -1;
-    this.edit_name = "";
-    this.new_value = undefined;
+  onKeydown(i, name) {
+    this.productService.updateProduct(this.products[i].productId, name, this.new_value)
+      .subscribe(
+        data => {
+          let message = data.message;
+          let level = data.level;
+          if(level == "success") {
+            if(name == "name") {
+              this.products[i].name = this.new_value;
+            } else if(name == "size") {
+              this.products[i].size = this.new_value;
+            } else if(name == "price") {
+              this.products[i].price = this.new_value;
+            }
+          } else {
+            alert(message);
+          }
+          this.edit_index = -1;
+          this.edit_name = "";
+          this.new_value = undefined;
+        }
+      );
   }
 
   onDelete(index) {
-    console.log("delete requested " + index);
     this.productService.deleteProduct(this.products[index].productId)
       .subscribe(
         data => {
@@ -59,6 +74,9 @@ export class AppComponent {
           } else {
             alert(message);
           }
+          this.edit_index = -1;
+          this.edit_name = "";
+          this.new_value = undefined;
         }
       );
   }

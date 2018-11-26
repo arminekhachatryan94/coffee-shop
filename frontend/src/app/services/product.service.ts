@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -17,14 +17,32 @@ export class ProductService {
   getProducts(): Observable<any>{
     return this.http.get(this.getProductsUrl)
       .pipe(
-        map(res => res.json())
+        map((response: Response) => response.json())
+      );
+  }
+
+  updateProduct(id, name, new_value): Observable<any> {
+    console.log(id + " " + name + " " + new_value);
+    const headers = new Headers({'Content-Type': 'application/json'});
+    let product = String();
+    if(name == "name") {
+      product = JSON.stringify({name: new_value});
+    } else if(name == "size") {
+      product = JSON.stringify({size: new_value});
+    } else if(name == "price") {
+      product = JSON.stringify({price: new_value});
+    }
+    
+    return this.http.put(this.updateProductUrl + id + "/" + name, product, {headers: headers})
+      .pipe(
+        map( res => res.json() )
       );
   }
 
   deleteProduct(product_id): Observable<any> {
     return this.http.delete(this.deleteProductUrl + product_id)
       .pipe(
-        map(res => res.json())
+        map((response: Response) => response.json())
       );
   }
 }

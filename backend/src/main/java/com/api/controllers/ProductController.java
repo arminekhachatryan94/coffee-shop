@@ -57,40 +57,61 @@ public class ProductController {
 	@PutMapping("/update/{id}/name")
 	public ResponseEntity<?> updateProduct(@PathVariable UUID id, @RequestBody Product product) {
 		int product_exists = productService.existsProduct(id);
+		JSONObject obj = new JSONObject();
 		if(product_exists != 0) {
 			boolean updated = productService.updateProductName(id, product.getName());
 			if(updated) {
-				return new ResponseEntity<String>("Product successfully updated.", HttpStatus.OK);
+				obj.put("message", "Product successfully updated.");
+				obj.put("level", "success");
+				return new ResponseEntity<>(obj, HttpStatus.OK);
 			}
-			return new ResponseEntity<String>("Unable to update.", HttpStatus.INTERNAL_SERVER_ERROR);
+			obj.put("message", "Unable to update.");
+			obj.put("level", "danger");
+			return new ResponseEntity<>(obj, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<String>("Product does not exists.", HttpStatus.NOT_FOUND);
+		obj.put("message", "Product does not exists.");
+		obj.put("level", "danger");
+		return new ResponseEntity<>(obj, HttpStatus.NOT_FOUND);
 	}
 
 	@PutMapping("/update/{id}/size")
 	public ResponseEntity<?> updateProductSize(@PathVariable UUID id, @RequestBody Product product) {
 		int product_exists = productService.existsProduct(id);
+		JSONObject obj = new JSONObject();
 		if(product_exists != 0) {
 			boolean updated = productService.updateProductSize(id, product.getSize());
 			if(updated) {
-				return new ResponseEntity<String>("Product successfully updated.", HttpStatus.OK);
+				obj.put("message", "Product successfully updated.");
+				obj.put("level", "success");
+				return new ResponseEntity<>(obj, HttpStatus.OK);
 			}
-			return new ResponseEntity<String>("Unable to update.", HttpStatus.INTERNAL_SERVER_ERROR);
+			obj.put("message", "Unable to update.");
+			obj.put("level", "danger");
+			return new ResponseEntity<>(obj, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<String>("Product does not exists.", HttpStatus.NOT_FOUND);
+		obj.put("message", "Product does not exists.");
+		obj.put("level", "danger");
+		return new ResponseEntity<>(obj, HttpStatus.NOT_FOUND);
 	}
 
 	@PutMapping("/update/{id}/price")
 	public ResponseEntity<?> updateProductPrice(@PathVariable UUID id, @RequestBody Product product) {
 		int product_exists = productService.existsProduct(id);
+		JSONObject obj = new JSONObject();
 		if(product_exists != 0) {
 			boolean updated = productService.updateProductPrice(id, product.getPrice());
 			if(updated) {
-				return new ResponseEntity<String>("Product successfully updated.", HttpStatus.OK);
+				obj.put("message", "Product successfully updated.");
+				obj.put("level", "success");
+				return new ResponseEntity<>(obj.toJSONString(), HttpStatus.OK);
 			}
-			return new ResponseEntity<String>("Unable to update.", HttpStatus.INTERNAL_SERVER_ERROR);
+			obj.put("message", "Unable to update.");
+			obj.put("level", "danger");
+			return new ResponseEntity<>(obj.toJSONString(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<String>("Product does not exists.", HttpStatus.NOT_FOUND);
+		obj.put("message", "Product does not exists.");
+		obj.put("level", "danger");
+		return new ResponseEntity<>(obj.toJSONString(), HttpStatus.NOT_FOUND);
 	}
 
 	@DeleteMapping("/delete/{id}")
