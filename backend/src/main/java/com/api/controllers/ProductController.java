@@ -37,7 +37,7 @@ public class ProductController {
 		List<Product> products = productService.getAllProducts();
 		JSONObject obj = new JSONObject();
 		obj.put("products", products);
-		return new ResponseEntity<>(obj.toJSONString(), HttpStatus.OK);
+		return new ResponseEntity<>(obj, HttpStatus.OK);
 	}
 	
 	@PostMapping("/create")
@@ -47,10 +47,15 @@ public class ProductController {
 			product.getSize(),
 			product.getPrice()
 		);
+		JSONObject obj = new JSONObject();
 		if(created) {
-			return new ResponseEntity<String>("Successfully created product", HttpStatus.CREATED);
+			obj.put("message", "Successfully created product.");
+			obj.put("level", "success");
+			return new ResponseEntity<>(obj, HttpStatus.CREATED);
 		}
-		return new ResponseEntity<String>("Unable to create product.", HttpStatus.INTERNAL_SERVER_ERROR);
+		obj.put("message", "Unable to create product.");
+		obj.put("level", "danger");
+		return new ResponseEntity<>(obj, HttpStatus.INTERNAL_SERVER_ERROR);
 
 	}
 
@@ -103,15 +108,15 @@ public class ProductController {
 			if(updated) {
 				obj.put("message", "Product successfully updated.");
 				obj.put("level", "success");
-				return new ResponseEntity<>(obj.toJSONString(), HttpStatus.OK);
+				return new ResponseEntity<>(obj, HttpStatus.OK);
 			}
 			obj.put("message", "Unable to update.");
 			obj.put("level", "danger");
-			return new ResponseEntity<>(obj.toJSONString(), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(obj, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		obj.put("message", "Product does not exists.");
 		obj.put("level", "danger");
-		return new ResponseEntity<>(obj.toJSONString(), HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(obj, HttpStatus.NOT_FOUND);
 	}
 
 	@DeleteMapping("/delete/{id}")
@@ -123,14 +128,14 @@ public class ProductController {
 			if(deleted) {
 				obj.put("message", "Product successfully deleted.");
 				obj.put("level", "success");
-				return new ResponseEntity<>(obj.toJSONString(), HttpStatus.OK);
+				return new ResponseEntity<>(obj, HttpStatus.OK);
 			}
 			obj.put("message", "Unable to update.");
 			obj.put("level", "danger");
-			return new ResponseEntity<>(obj.toJSONString(), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(obj, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		obj.put("message", "Product does not exists.");
 		obj.put("level", "danger");
-		return new ResponseEntity<>(obj.toJSONString(), HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(obj, HttpStatus.NOT_FOUND);
 	}
 }
