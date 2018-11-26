@@ -42,13 +42,16 @@ public class ProductController {
 	
 	@PostMapping("/create")
 	public ResponseEntity<?> deleteProduct(@RequestBody Product product) {
+		UUID generated_id = UUIDs.timeBased();
 		boolean created = productService.createProduct(
+			generated_id,
 			product.getName(),
 			product.getSize(),
 			product.getPrice()
 		);
 		JSONObject obj = new JSONObject();
 		if(created) {
+			obj.put("id", generated_id);
 			obj.put("message", "Successfully created product.");
 			obj.put("level", "success");
 			return new ResponseEntity<>(obj, HttpStatus.CREATED);

@@ -31,7 +31,6 @@ export class ProductService {
   }
 
   updateProduct(id, name, new_value): Observable<any> {
-    console.log(id + " " + name + " " + new_value);
     const headers = new Headers({'Content-Type': 'application/json'});
     let product = String();
     if(name == "name") {

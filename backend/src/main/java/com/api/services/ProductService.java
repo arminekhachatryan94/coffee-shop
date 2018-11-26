@@ -17,8 +17,8 @@ public interface ProductService extends CassandraRepository<Product, UUID> {
     @Query("SELECT count(*) FROM coffeeshop.products WHERE product_id = :id")
     int existsProduct(UUID id);
 
-    @Query("INSERT INTO coffeeshop.products (product_id, name, size, price) VALUES (now(), :name, :size, :price) IF NOT EXISTS")
-    boolean createProduct(String name, int size, double price);
+    @Query("INSERT INTO coffeeshop.products (product_id, name, size, price) VALUES (:id, :name, :size, :price) IF NOT EXISTS")
+    boolean createProduct(UUID id, String name, int size, double price);
 
     @Query("UPDATE coffeeshop.products SET name = :name WHERE product_id = :id IF EXISTS")
     boolean updateProductName(UUID id, String name);

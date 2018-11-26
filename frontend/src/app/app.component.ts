@@ -41,8 +41,6 @@ export class AppComponent {
   }
 
   createProduct() {
-    console.log("submit");
-    console.log(this.new_product.name.trim());
     if(this.new_product.name != undefined && this.new_product.name.trim().length != 0
       && this.new_product.size != undefined
       && this.new_product.price != undefined){
@@ -52,6 +50,7 @@ export class AppComponent {
             let message = data.message;
             let level = data.level;
             if(level == "success") {
+              this.new_product.productId = data.id;
               this.products.push(this.new_product);
               this.products.sort(this.compare);
               this.new_product = new Product();
