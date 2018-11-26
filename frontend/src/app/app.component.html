@@ -6,15 +6,22 @@
       <div class="col-2 bold">Size</div>
       <div class="col-2 bold">Price</div>
     </div>
-    <div>{{new_value}}</div>
     <div *ngFor="let product of products; index as i" class="row margin--top-10">
       <div *ngIf="!(edit_index == i && edit_name == 'name')" class="col-5 margin--left-10" (click)="onEditClick(i, 'name')">{{ product.name }}</div>
       <input *ngIf="edit_index == i && edit_name == 'name'" [value]="new_value" [(ngModel)]="new_value" (ngModelChange)="new_value = $event" type="text" class="col-5 margin--left-10" (keydown.enter)="onKeydown(i, 'name')" required>
       <div *ngIf="!(edit_index == i && edit_name == 'size')" class="col-2 margin--left-10" (click)="onEditClick(i, 'size')">{{ product.size }} oz</div>
       <input *ngIf="edit_index == i && edit_name == 'size'" [value]="new_value" [(ngModel)]="new_value" (ngModelChange)="new_value = $event" type="number" class="col-2 margin--left-10" (keydown.enter)="onKeydown(i, 'size')" required>
       <div *ngIf="!(edit_index == i && edit_name == 'price')" class="col-2 margin--left-10" (click)="onEditClick(i, 'price')">${{ product.price.toFixed(2) }}</div>
-      <input *ngIf="edit_index == i && edit_name == 'price'" [value]="new_value" [(ngModel)]="new_value" (ngModelChange)="new_value = $event" type="number" class="col-2 input--style margin--left-10" (keydown.enter)="onKeydown(i, 'price')" required>
-      <div class="col-2"><button class="btn btn-danger" (click)="onDelete(i)">Remove</button></div>
+      <input *ngIf="edit_index == i && edit_name == 'price'" [value]="new_value" [(ngModel)]="new_value" (ngModelChange)="new_value = $event" type="number" class="col-2 margin--left-10" (keydown.enter)="onKeydown(i, 'price')" required>
+      <div class="col-2 text-center"><button class="btn btn-danger" (click)="onDelete(i)">Remove</button></div>
+    </div>
+    <div class="row margin--top-10">
+      <input type="text" class="col-5 margin--left-10" [value]="new_product.name" [(ngModel)]="new_product.name" (ngModelChange)="new_product.name = $event" required>
+      <input type="number" class="col-2 margin--left-10" [value]="new_product.size" [(ngModel)]="new_product.size" (ngModelChange)="new_product.size = $event" required>
+      <input type="number" class="col-2 margin--left-10" [value]="new_product.price" [(ngModel)]="new_product.price" (ngModelChange)="new_product.price = $event" required>
+      <div class="col-2 text-center">
+        <button class="btn btn-success" (click)="createProduct()">Add</button>
+      </div>
     </div>
   </div>
 </div>

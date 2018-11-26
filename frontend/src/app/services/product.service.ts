@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Product } from '../models/Product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,14 @@ export class ProductService {
     return this.http.get(this.getProductsUrl)
       .pipe(
         map((response: Response) => response.json())
+      );
+  }
+
+  createProduct(product): Observable<any> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.post(this.createProductUrl, product, {headers: headers})
+      .pipe(
+        map( res => res.json() )
       );
   }
 

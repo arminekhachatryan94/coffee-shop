@@ -16,7 +16,11 @@ export class AppComponent {
 
   new_value;
 
+  new_product: Product;
+
   constructor(private productService: ProductService) {
+    this.new_product = new Product();
+    this.new_product.name = "";
   }
 
   ngOnInit() {
@@ -25,6 +29,32 @@ export class AppComponent {
         this.products = data.content;
       }
     );
+  }
+
+  createProduct() {
+    console.log("submit");
+    console.log(this.new_product.name.trim());
+    if(this.new_product.name != undefined && this.new_product.name.trim().length != 0
+      && this.new_product.size != undefined
+      && this.new_product.price != undefined){
+      this.productService.createProduct(this.new_product)
+        .subscribe(
+          data => {
+            let message = data.message;
+            let level = data.level;
+            if(level == "success") {
+              this.products.push(this.new_product);
+              this.new_product = new Product();
+              this.new_product.name = "";
+            } else {
+              alert(message);
+            }
+          }
+        );
+    }
+    else {
+      alert("Please fill out the required fields.");
+    }
   }
 
   onEditClick(index, name) {
